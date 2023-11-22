@@ -877,18 +877,19 @@
 									"key": "infer",
 									"value": "true",
 									"description": "Whether to use xAmbit AI to generate summary report",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "hookurl",
-									"value": "example.com",
+									"value": "https://05b3-2402-e280-3e09-3c8-f410-ea03-6feb-8731.ngrok-free.app",
 									"description": "URL to which xAmbit should send reponse",
 									"type": "text"
 								},
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/harshad/Desktop/hdfc_2_pages.pdf"
+									"src": "/Users/harshad/Desktop/test_png_statement.png"
 								},
 								{
 									"key": "hookauth",
@@ -1011,7 +1012,8 @@
 								"collection",
 								"{{collection_id}}"
 							]
-						}
+						},
+						"description": "THIS API IS NOT YET IMPLEMENTED. It is a work in progress!"
 					},
 					"response": []
 				},
