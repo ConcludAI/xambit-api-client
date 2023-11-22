@@ -745,7 +745,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fin_years\": 1,\n    \"aggregate\": true,\n    \"infer\": false,\n    \"hook\": {\n        \"url\": \"example.com/endpoint\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        },\n        \"method\": \"POST\"\n    }\n}"
+							"raw": "{\n    \"fin_years\": 1, // optional attribute if you have supplied period\n    \"period\": {\n        \"start\": \"2022-01-31\",\n        \"end\": \"2022-12-31\"\n    },\n    \"aggregate\": true,\n    \"infer\": false,\n    \"hook\": {\n        \"url\": \"example.com/endpoint\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        },\n        \"method\": \"POST\"\n    }\n}"
 						},
 						"url": {
 							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/basic",
