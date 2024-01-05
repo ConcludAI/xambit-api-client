@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dcc8d918-a914-41b0-8c47-1e5cd735d825",
+		"_postman_id": "0266c4bc-b7c6-4118-89bf-706b88b675a6",
 		"name": "xAmbit API V0",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31080727"
@@ -31,13 +31,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/exists",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/exists",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -148,13 +144,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -264,13 +256,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -359,7 +347,7 @@
 					]
 				},
 				{
-					"name": "Get data for this GSTIN",
+					"name": "Get xAmbit analyzed data for this GSTIN",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -380,13 +368,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -396,6 +380,124 @@
 							]
 						},
 						"description": "This requests creates a new GSTIN for analysis in the system. Note that this step does not need OTP or other credentials for the GST portal. Those parameters are part of a separate API flow (OTP validation)"
+					},
+					"response": [
+						{
+							"name": "Check if GSTIN analysis exists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-HOST",
+										"value": "{{xambit_api_host}}",
+										"type": "text"
+									},
+									{
+										"key": "X-KEY",
+										"value": "{{xambit_api_key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}",
+									"protocol": "https",
+									"host": [
+										"xapp-gstr-5qxdkkqowq-el",
+										"a",
+										"run",
+										"app"
+									],
+									"path": [
+										"api",
+										"{{xambit_gst_xapp_id}}",
+										"gstin",
+										"{{gstin_number}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1091"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 17 Nov 2023 06:06:36 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "traceparent",
+									"value": "00-1678074014e92c6436b0fb04e2d91371-ca8df44bfb88b0ae-01"
+								},
+								{
+									"key": "x-cloud-trace-context",
+									"value": "1678074014e92c6436b0fb04e2d91371/14595590574557409454;o=1"
+								},
+								{
+									"key": "Alt-Svc",
+									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"g-col-01HF64AXQD9HRDETCAA1SH4SN9\",\n    \"gstin\": \"29AAPCM6632E1Z5\",\n    \"status\": 0,\n    \"business\": {\n        \"name\": \"MYTHIKSHA SCHOOL PRIVATE LIMITED\",\n        \"ids\": [\n            {\n                \"id_kind\": 1,\n                \"id\": \"29AAPCM6632E1Z5\"\n            },\n            {\n                \"id_kind\": 2,\n                \"id\": \"AAPCM6632E\"\n            }\n        ],\n        \"promoters\": [],\n        \"trade_name\": null,\n        \"alt_name\": null,\n        \"address\": {\n            \"line1\": \"L-148, HSR LAYOUT\",\n            \"line2\": \"5th Main Road\",\n            \"city\": \"Bengaluru\",\n            \"state_code\": null,\n            \"state\": \"Karnataka\",\n            \"postal_code\": \"560102\",\n            \"country\": \"IN\"\n        },\n        \"other_ids\": [],\n        \"email\": null,\n        \"phone\": null,\n        \"bank\": null,\n        \"cheque\": null,\n        \"wire\": null,\n        \"website\": null\n    },\n    \"gstrbusiness\": {\n        \"kind\": \"Private Limited Company\",\n        \"jurisdiction_name\": \"RANGE-CSD5\",\n        \"jurisdiction_code\": \"YV0503\",\n        \"taxpayer_kind\": \"Regular\",\n        \"einvoice_status\": false,\n        \"nature_of_business\": [\n            \"Supplier of Services\"\n        ],\n        \"date_of_registration\": \"2022-07-07\",\n        \"jurisdiction_state_name\": \"LGSTO 17- Bengaluru\",\n        \"jurisdiction_state_code\": \"KA130\",\n        \"date_cancel\": null\n    },\n    \"entries\": [],\n    \"metrics\": [],\n    \"created\": \"2023-11-14 05:19:46.546542\",\n    \"updated\": \"2023-11-14 05:19:46.546542\",\n    \"period\": null,\n    \"authdate\": null,\n    \"creator\": {\n        \"id\": \"u-01H7CDJW728ZCAA0C7XYNNXFVT\",\n        \"name\": \"Chahat\",\n        \"email\": \"chahat@xambit.io\",\n        \"perm\": 2\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get public data for this GSTIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-HOST",
+								"value": "{{xambit_api_host}}",
+								"type": "text"
+							},
+							{
+								"key": "X-KEY",
+								"value": "{{xambit_api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}?public=true",
+							"host": [
+								"{{xambit_gst_url}}"
+							],
+							"path": [
+								"api",
+								"{{xambit_gst_xapp_id}}",
+								"gstin",
+								"{{gstin_number}}"
+							],
+							"query": [
+								{
+									"key": "public",
+									"value": "true"
+								}
+							]
+						},
+						"description": "This request fetches only public data for a (valid) GSTIN number. No collection/loan application entry will be created in the backend. NOTE the ?public=true query parameter. Also, you may incur xAmbit API usage costs since public data fetch is not a free API.\n\nThe API response structure is same as getting data for an analyzed GSTIN, but all fields related to metrics/tax payments etc are empty."
 					},
 					"response": [
 						{
@@ -505,13 +607,9 @@
 							"raw": "{\n    \"gst_portal_user_name\": \"{{gstin_username}}\",\n    \"otp\": null\n}"
 						},
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/otp",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/otp",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -626,13 +724,9 @@
 							"raw": "{\n    \"gst_portal_user_name\": \"{{gstin_username}}\",\n    \"otp\": \"<string of OTP>\"\n}"
 						},
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/otp/valid",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/otp/valid",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -748,13 +842,9 @@
 							"raw": "{\n    \"fin_years\": 1, // optional attribute if you have supplied period\n    \"period\": {\n        \"start\": \"2022-01-31\",\n        \"end\": \"2022-12-31\"\n    },\n    \"aggregate\": true,\n    \"infer\": false,\n    \"hook\": {\n        \"url\": \"example.com/endpoint\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        },\n        \"method\": \"POST\"\n    }\n}"
 						},
 						"url": {
-							"raw": "https://xapp-gstr-5qxdkkqowq-el.a.run.app/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/basic",
-							"protocol": "https",
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/basic",
 							"host": [
-								"xapp-gstr-5qxdkkqowq-el",
-								"a",
-								"run",
-								"app"
+								"{{xambit_gst_url}}"
 							],
 							"path": [
 								"api",
@@ -842,6 +932,115 @@
 							"body": "{\n    \"id\": \"g-col-01HF64AXQD9HRDETCAA1SH4SN9\",\n    \"gstin\": \"29AAPCM6632E1Z5\",\n    \"status\": 0,\n    \"business\": {\n        \"name\": \"MYTHIKSHA SCHOOL PRIVATE LIMITED\",\n        \"ids\": [\n            {\n                \"id_kind\": 1,\n                \"id\": \"29AAPCM6632E1Z5\"\n            },\n            {\n                \"id_kind\": 2,\n                \"id\": \"AAPCM6632E\"\n            }\n        ],\n        \"promoters\": [],\n        \"trade_name\": null,\n        \"alt_name\": null,\n        \"address\": {\n            \"line1\": \"L-148, HSR LAYOUT\",\n            \"line2\": \"5th Main Road\",\n            \"city\": \"Bengaluru\",\n            \"state_code\": null,\n            \"state\": \"Karnataka\",\n            \"postal_code\": \"560102\",\n            \"country\": \"IN\"\n        },\n        \"other_ids\": [],\n        \"email\": null,\n        \"phone\": null,\n        \"bank\": null,\n        \"cheque\": null,\n        \"wire\": null,\n        \"website\": null\n    },\n    \"gstrbusiness\": {\n        \"kind\": \"Private Limited Company\",\n        \"jurisdiction_name\": \"RANGE-CSD5\",\n        \"jurisdiction_code\": \"YV0503\",\n        \"taxpayer_kind\": \"Regular\",\n        \"einvoice_status\": false,\n        \"nature_of_business\": [\n            \"Supplier of Services\"\n        ],\n        \"date_of_registration\": \"2022-07-07\",\n        \"jurisdiction_state_name\": \"LGSTO 17- Bengaluru\",\n        \"jurisdiction_state_code\": \"KA130\",\n        \"date_cancel\": null\n    },\n    \"entries\": [],\n    \"metrics\": [],\n    \"created\": \"2023-11-14 05:19:46.546542\",\n    \"updated\": \"2023-11-14 05:19:46.546542\",\n    \"period\": null,\n    \"authdate\": null,\n    \"creator\": {\n        \"id\": \"u-01H7CDJW728ZCAA0C7XYNNXFVT\",\n        \"name\": \"Chahat\",\n        \"email\": \"chahat@xambit.io\",\n        \"perm\": 2\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "Add 3B file to existing collection as multi part form",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-HOST",
+								"value": "{{xambit_api_host}}",
+								"type": "text"
+							},
+							{
+								"key": "X-KEY",
+								"value": "{{xambit_api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "aggregate",
+									"value": "true",
+									"description": "Whether to run aggregation to calculate metrics (should set to true)",
+									"type": "text"
+								},
+								{
+									"key": "infer",
+									"value": "false",
+									"description": "Whether to use xAmbit AI to generate summary report",
+									"type": "text"
+								},
+								{
+									"key": "hookurl",
+									"value": "example.com",
+									"description": "URL to which xAmbit should send reponse",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/harshad/Downloads/sample_gstr_3b.pdf"
+								},
+								{
+									"key": "hookauth",
+									"value": "{\"test_key\": \"test_value\"}",
+									"description": "Some parameters like credentials for webhook URL where xAmbit will post the results",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/file",
+							"host": [
+								"{{xambit_gst_url}}"
+							],
+							"path": [
+								"api",
+								"{{xambit_gst_xapp_id}}",
+								"gstin",
+								"{{gstin_number}}",
+								"file"
+							]
+						},
+						"description": "**This API is still WIP/testing phase. Do not use.**\n\nAdd a GSTR3B return file to an existing GSTIN (collection). Data will be extracted from file. Note that file content is added as an array of u8 in the request body."
+					},
+					"response": []
+				},
+				{
+					"name": "Add 3B file to existing collection with json data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-HOST",
+								"value": "{{xambit_api_host}}",
+								"type": "text"
+							},
+							{
+								"key": "X-KEY",
+								"value": "{{xambit_api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"file\": {\n        \"blob\": \"<file data read as byte array Array[Uint8]>\",\n        \"category\": 7,\n        \"name\": \"gstr3b_return_file.pdf\"\n    },\n    \"aggregate\": true,\n    \"infer\": false,\n    \"hook\": {\n        \"url\": \"example.com\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{xambit_gst_url}}/api/{{xambit_gst_xapp_id}}/gstin/{{gstin_number}}/3b",
+							"host": [
+								"{{xambit_gst_url}}"
+							],
+							"path": [
+								"api",
+								"{{xambit_gst_xapp_id}}",
+								"gstin",
+								"{{gstin_number}}",
+								"3b"
+							]
+						},
+						"description": "**This API is still WIP/testing phase. Do not use.**\n\nAdd a GSTR3B return file to an existing GSTIN (collection). Data will be extracted from file. Note that file content is added as an array of u8 in the request body."
+					},
+					"response": []
 				}
 			]
 		},
