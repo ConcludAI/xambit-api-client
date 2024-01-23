@@ -1103,7 +1103,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": []
+									"src": "/Users/harshad/Downloads/RAKSHA MANAGEMENT /07-GSTR3B OCTOBER-2022.pdf"
 								},
 								{
 									"key": "hookauth",
@@ -1178,73 +1178,7 @@
 			"name": "Bank Statement Analyser",
 			"item": [
 				{
-					"name": "Create new file collection and analyse file as multi part form",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "X-HOST",
-								"value": "{{xambit_api_host}}",
-								"type": "text"
-							},
-							{
-								"key": "X-KEY",
-								"value": "{{xambit_api_key}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "aggregate",
-									"value": "true",
-									"description": "Whether to run aggregation to calculate metrics (should set to true)",
-									"type": "text"
-								},
-								{
-									"key": "infer",
-									"value": "true",
-									"description": "Whether to use xAmbit AI to generate summary report",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "hookurl",
-									"value": "https://05b3-2402-e280-3e09-3c8-f410-ea03-6feb-8731.ngrok-free.app",
-									"description": "URL to which xAmbit should send reponse",
-									"type": "text"
-								},
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/Users/harshad/Desktop/test_png_statement.png"
-								},
-								{
-									"key": "hookauth",
-									"value": "{\"test_key\": \"test_value\"}",
-									"description": "Some parameters like credentials for webhook URL where xAmbit will post the results",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection",
-							"host": [
-								"{{xambit_bankstat_url}}"
-							],
-							"path": [
-								"api",
-								"{{xambit_bankstat_xapp_id}}",
-								"collection"
-							]
-						},
-						"description": "Create a file collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the header are documented below. Note that this API works on **WebHook Post** basis for response. You do not get bank statement analysis result in response immediately. The result will be posted to the hookurl you have specified in the data!\n\n- Aggregate: bool, if set to true, xAmbit extracts metrics like check bounce count, EMI bounce count etc. Can be set to false if you need only the raw transaction level data from the statement.\n    \n- Infer: bool, if set to true, xAmbit AI will try to generate a text summary of all the transactional data and its metrics.\n    \n- hookurl: where to post results of the analysis aka webhook URL\n    \n- hookauth: if your webhook URL needs some authentication to enable us to post result, set them here as a hashmap key-value pairs.\n    \n- file: multipart form data which contains actual content of the file to be analysed."
-					},
-					"response": []
-				},
-				{
-					"name": "Create new file collection and analyse with json data",
+					"name": "Create new collection for analysis",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1261,7 +1195,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"file\": {\n        \"blob\": \"<file data read as byte array Array[Uint8]>\",\n        \"category\": 5,\n        \"name\": \"some_name_for_file.pdf\"\n    },\n    \"aggregate\": true,\n    \"infer\": true,\n    \"hook\": {\n        \"url\": \"example.com\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        }\n    }\n}",
+							"raw": "{\n    \"name\": \"Harshad-API-Test\",\n    \"aggregate\": true,\n    \"infer\": true,\n    \"hook\": {\n        \"url\": \"https://example.com\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        }\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1279,7 +1213,95 @@
 								"collection"
 							]
 						},
-						"description": "Create a file collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the header are documented below. Note that this API works on **WebHook Post** basis for response. You do not get bank statement analysis result in response immediately. The result will be posted to the hookurl you have specified in the data!\n\n- Aggregate: bool, if set to true, xAmbit extracts metrics like check bounce count, EMI bounce count etc. Can be set to false if you need only the raw transaction level data from the statement.\n    \n- Infer: bool, if set to true, xAmbit AI will try to generate a text summary of all the transactional data and its metrics.\n    \n- hookurl: where to post results of the analysis aka webhook URL\n    \n- hookauth: if your webhook URL needs some authentication to enable us to post result, set them here as a hashmap key-value pairs.\n    \n- file: multipart form data which contains actual content of the file to be analysed."
+						"description": "Create new analysis for bank statement. This creates a collection and returns you a collection ID. You should save this collection ID (example: in a database). Further analysis and retrieval happens against the collection ID.\n\n- aggregate: bool, whether data in transactions should be aggregated to derive metrics. This should be set to true.\n- infer: bool, whether to use xAmbit LLM to do an analysis of the metrics.\n- name: string, an optional string name given to this analysis.\n- hook: after analysis is complete, xAmbit will send the response to the URL endpoint specified in hook object, after setting headers specified in the hook object using the method specific in the hook object."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload file to existing collection for analysis as multi part form",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-HOST",
+								"value": "{{xambit_api_host}}",
+								"type": "text"
+							},
+							{
+								"key": "X-KEY",
+								"value": "{{xambit_api_key}}",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/harshad/Desktop/sample_files/sample_bank_statement.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{xambit_bankstat_collection}}",
+							"host": [
+								"{{xambit_bankstat_url}}"
+							],
+							"path": [
+								"api",
+								"{{xambit_bankstat_xapp_id}}",
+								"collection",
+								"{{xambit_bankstat_collection}}"
+							]
+						},
+						"description": "Add a file to an existing collection for bank statement analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the header are documented below.\n\n- file: multipart form data which contains actual content of the file to be analysed."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload file to existing collection for analysis with json data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-HOST",
+								"value": "{{xambit_api_host}}",
+								"type": "text"
+							},
+							{
+								"key": "X-KEY",
+								"value": "{{xambit_api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"file\": {\n        \"blob\": \"<file data read as byte array Array[Uint8]>\",\n        \"category\": 5,\n        \"name\": \"some_name_for_file.pdf\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection",
+							"host": [
+								"{{xambit_bankstat_url}}"
+							],
+							"path": [
+								"api",
+								"{{xambit_bankstat_xapp_id}}",
+								"collection"
+							]
+						},
+						"description": "Add a file to existing collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the body are documented below.\n\n- file: is an object with keys `blob`, `category` and `name`\n    \n- name: string, a name assigned to the file\n    \n- category: int, should be set to 5(i32) indicating bank statement\n    \n- blob: array of u8s representing the actual content of the file."
 					},
 					"response": []
 				},
@@ -1300,7 +1322,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{collection_id}}",
+							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{xambit_bankstat_collection}}",
 							"host": [
 								"{{xambit_bankstat_url}}"
 							],
@@ -1308,7 +1330,7 @@
 								"api",
 								"{{xambit_bankstat_xapp_id}}",
 								"collection",
-								"{{collection_id}}"
+								"{{xambit_bankstat_collection}}"
 							]
 						}
 					},
@@ -1331,7 +1353,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{collection_id}}",
+							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{xambit_bankstat_collection}}",
 							"host": [
 								"{{xambit_bankstat_url}}"
 							],
@@ -1339,117 +1361,10 @@
 								"api",
 								"{{xambit_bankstat_xapp_id}}",
 								"collection",
-								"{{collection_id}}"
+								"{{xambit_bankstat_collection}}"
 							]
 						},
 						"description": "THIS API IS NOT YET IMPLEMENTED. It is a work in progress!"
-					},
-					"response": []
-				},
-				{
-					"name": "Add a file to existing collection as multi part form and analyse",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "X-HOST",
-								"value": "{{xambit_api_host}}",
-								"type": "text"
-							},
-							{
-								"key": "X-KEY",
-								"value": "{{xambit_api_key}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "aggregate",
-									"value": "true",
-									"description": "Whether to run aggregation to calculate metrics (should set to true)",
-									"type": "text"
-								},
-								{
-									"key": "infer",
-									"value": "true",
-									"description": "Whether to use xAmbit AI to generate summary report",
-									"type": "text"
-								},
-								{
-									"key": "hookurl",
-									"value": "example.com",
-									"description": "URL to which xAmbit should send reponse",
-									"type": "text"
-								},
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/Users/harshad/Desktop/hdfc_2_pages.pdf"
-								},
-								{
-									"key": "hookauth",
-									"value": "{\"test_key\": \"test_value\"}",
-									"description": "Some parameters like credentials for webhook URL where xAmbit will post the results",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{collection_id}}",
-							"host": [
-								"{{xambit_bankstat_url}}"
-							],
-							"path": [
-								"api",
-								"{{xambit_bankstat_xapp_id}}",
-								"collection",
-								"{{collection_id}}"
-							]
-						},
-						"description": "Create a file collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the header are documented below. Note that this API works on **WebHook Post** basis for response. You do not get bank statement analysis result in response immediately. The result will be posted to the hookurl you have specified in the data!\n\n- Aggregate: bool, if set to true, xAmbit extracts metrics like check bounce count, EMI bounce count etc. Can be set to false if you need only the raw transaction level data from the statement.\n    \n- Infer: bool, if set to true, xAmbit AI will try to generate a text summary of all the transactional data and its metrics.\n    \n- hookurl: where to post results of the analysis aka webhook URL\n    \n- hookauth: if your webhook URL needs some authentication to enable us to post result, set them here as a hashmap key-value pairs.\n    \n- file: multipart form data which contains actual content of the file to be analysed."
-					},
-					"response": []
-				},
-				{
-					"name": "Add a file to existing collection with json data and analyse",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-HOST",
-								"value": "{{xambit_api_host}}",
-								"type": "text"
-							},
-							{
-								"key": "X-KEY",
-								"value": "{{xambit_api_key}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"file\": {\n        \"blob\": \"<file data read as byte array Array[Uint8]>\",\n        \"category\": 5,\n        \"name\": \"some_name_for_file.pdf\"\n    },\n    \"aggregate\": true,\n    \"infer\": true,\n    \"hook\": {\n        \"url\": \"example.com\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"test_key\": \"test_value\"\n        }\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{collection_id}}",
-							"host": [
-								"{{xambit_bankstat_url}}"
-							],
-							"path": [
-								"api",
-								"{{xambit_bankstat_xapp_id}}",
-								"collection",
-								"{{collection_id}}"
-							]
-						},
-						"description": "Create a file collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the header are documented below. Note that this API works on **WebHook Post** basis for response. You do not get bank statement analysis result in response immediately. The result will be posted to the hookurl you have specified in the data!\n\n- Aggregate: bool, if set to true, xAmbit extracts metrics like check bounce count, EMI bounce count etc. Can be set to false if you need only the raw transaction level data from the statement.\n    \n- Infer: bool, if set to true, xAmbit AI will try to generate a text summary of all the transactional data and its metrics.\n    \n- hookurl: where to post results of the analysis aka webhook URL\n    \n- hookauth: if your webhook URL needs some authentication to enable us to post result, set them here as a hashmap key-value pairs.\n    \n- file: multipart form data which contains actual content of the file to be analysed."
 					},
 					"response": []
 				}
