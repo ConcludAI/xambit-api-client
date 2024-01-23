@@ -1291,14 +1291,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection",
+							"raw": "{{xambit_bankstat_url}}/api/{{xambit_bankstat_xapp_id}}/collection/{{xambit_bankstat_collection}}",
 							"host": [
 								"{{xambit_bankstat_url}}"
 							],
 							"path": [
 								"api",
 								"{{xambit_bankstat_xapp_id}}",
-								"collection"
+								"collection",
+								"{{xambit_bankstat_collection}}"
 							]
 						},
 						"description": "Add a file to existing collection for bank statement analysis by adding one single file for analysis. This request returns 200 OK if everything is found in order.\n\nThe parameters in the body are documented below.\n\n- file: is an object with keys `blob`, `category` and `name`\n    \n- name: string, a name assigned to the file\n    \n- category: int, should be set to 5(i32) indicating bank statement\n    \n- blob: array of u8s representing the actual content of the file."
